@@ -1,0 +1,37 @@
+group 'com.rainmaker.tutorial'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Rest Test With Gradle',
+                'Implementation-Version': version,
+                'Main-Class': 'com.rainmaker.tutorial.rest.RestTestMain'
+    }
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.jayway.restassured', name: 'rest-assured', version: '2.6.0'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+task hello {
+    doLast {
+        println 'Hello world!'
+    }
+}
+
